@@ -16,7 +16,7 @@ class TranningPipelineConfig:
 class DataIngestionConfig:
     def __init__(self,tranning_pipeline_config : TranningPipelineConfig):
         self.data_ingestion_dir = os.path.join(
-            tranning_pipeline_config.artifact_dir, training_pipeline.DATA_INGESTION_INGESTED_DIR
+            tranning_pipeline_config.artifact_dir, training_pipeline.DATA_INGESTION_DIR_NAME
             )
         self.feature_store_file_path: str = os.path.join(
                 self.data_ingestion_dir, training_pipeline.DATA_INGESTION_FEATURE_STORE_DIR, training_pipeline.FILE_NAME

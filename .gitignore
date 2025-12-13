@@ -4,4 +4,5 @@ logs
 __pycache__
 push_data
 push_data.py
-
+Artifacts
+.vscode
