@@ -10,7 +10,7 @@ networksecurity/cloud/__init__.py
 networksecurity/components/__init__.py
 networksecurity/components/data_ingestion.py
 networksecurity/constant/__init__.py
-networksecurity/constant/tranning_pipeline/__init__.py
+networksecurity/constant/training_pipeline/__init__.py
 networksecurity/entity/__init__.py
 networksecurity/entity/config_entity.py
 networksecurity/exception/__init__.py
