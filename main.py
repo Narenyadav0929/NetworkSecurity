@@ -1,18 +1,24 @@
 from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.logging.logger import logging
 from networksecurity.components.data_ingestion import DataIngestion
-from networksecurity.entity.config_entity import DataIngestionConfig, TrainingPipelineConfig
+from networksecurity.entity.config_entity import DataIngestionConfig, TrainingPipelineConfig, DataValidationConfig
 from networksecurity.entity.artifact_entity import DataIngestionArtifact
+from networksecurity.components.data_validation import DataValidation
 import sys
 
 if __name__ == "__main__":
     try:
         tranningpipelineconfig = TrainingPipelineConfig()
+        logging.info('Data Injetion is started')
         datainjestionconfig = DataIngestionConfig(tranningpipelineconfig)
         datainjestion = DataIngestion(datainjestionconfig)
         dataartifact = datainjestion.initiate_data_injetion()
-        print(dataartifact)
-        
+        logging.info('Data Injetion is completed and Data validation is started')
+        datavalidationconfig = DataValidationConfig(tranningpipelineconfig)
+        datavalidation = DataValidation(data_injetion_artifact=dataartifact,data_validation_config=datavalidationconfig)
+        data_validation_artfact=datavalidation.initiate_data_validation()
+        logging.info('Data validation is completed')
+        print(data_validation_artfact)
     
     except Exception as e:
         raise(NetworkSecurityException(e, sys))
