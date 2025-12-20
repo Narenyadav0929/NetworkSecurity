@@ -8,3 +8,5 @@ Artifacts
 .vscode
 NetworkSecurity.egg-info
 /NetworkSecurity.egg-info
+mlflow.db
+mlruns

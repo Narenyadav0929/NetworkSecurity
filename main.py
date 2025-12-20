@@ -35,7 +35,8 @@ if __name__ == "__main__":
         logging.info("Model Tranning started")
         model_trainer_config = ModelTrainerConfig(training_pipeline_config=tranningpipelineconfig)
         model_trainer = ModelTrainer(model_trainer_config=model_trainer_config,data_transformation_artifact=data_transformation_artifact)
-        model_trainer.initiate_model_trainer()
+        model_trainer_artficats = model_trainer.initiate_model_trainer()
+        print(model_trainer_artficats)
         logging.info('Model trainng is completed and return model tranning artifact')
 
 
