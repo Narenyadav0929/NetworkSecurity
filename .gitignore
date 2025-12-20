@@ -6,4 +6,5 @@ push_data
 push_data.py
 Artifacts
 .vscode
-.NetworkSecurity.egg-info
+NetworkSecurity.egg-info
+/NetworkSecurity.egg-info
