@@ -65,8 +65,12 @@ class TraningPipeline:
 
         
     def run_pipeline(self):
-        data_injetion_artifact = self.start_data_ingetion()
-        data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_injetion_artifact)
-        data_transformation_artifact = self.start_data_transformation(data_validation_artifacts=data_validation_artifact)
-        model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
-        return model_trainer_artifact
+        try:
+            data_injetion_artifact = self.start_data_ingetion()
+            data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_injetion_artifact)
+            data_transformation_artifact = self.start_data_transformation(data_validation_artifacts=data_validation_artifact)
+            model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
+            return model_trainer_artifact
+        
+        except Exception as e:
+            raise NetworkSecurityException(e, sys)
