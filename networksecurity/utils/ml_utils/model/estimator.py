@@ -6,18 +6,17 @@ from networksecurity.logging.logger import logging
 
 
 class NetworkModel:
-    def __init__(self,processor,model):
+    def __init__(self,preprocessor,model):
         try:
-            self.processor = processor
+            self.preprocessor = preprocessor
             self.model = model
         except Exception as e:
             raise NetworkSecurityException(e,sys)
-        
+    
     def predict(self,x):
         try:
-            X_trasform = self.processor.transform(x)
-            y_hat = self.model.predict(X_trasform)
+            x_transform = self.preprocessor.transform(x)
+            y_hat = self.model.predict(x_transform)
             return y_hat
-
         except Exception as e:
             raise NetworkSecurityException(e,sys)

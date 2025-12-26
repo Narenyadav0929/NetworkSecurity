@@ -13,6 +13,7 @@ from networksecurity.logging.logger import logging
 from networksecurity.exception.exception import NetworkSecurityException
 from networksecurity.entity.config_entity import TrainingPipelineConfig
 from networksecurity.pipeline.training_pipeline import TraningPipeline
+from networksecurity.utils.ml_utils.model.estimator import NetworkModel
 
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, File, Request, UploadFile
@@ -31,6 +32,13 @@ from networksecurity.constant.training_pipeline import (DATA_INGESTION_DATABASE_
 
 database = client[DATA_INGESTION_DATABASE_NAME]
 collection = database[DATA_INGESTION_COLLECTION_NAME]
+
+from fastapi.templating import Jinja2Templates
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
+
+templates = Jinja2Templates(directory=TEMPLATE_DIR)
+
 
 app = FastAPI()
 origins = ["*"]
@@ -60,5 +68,30 @@ async def train_route():
     except Exception as e:
         raise NetworkSecurityException(e, sys)
     
-    if __name__ == "__main__":
+
+@app.post("/predict")
+async def predict_route(request: Request,file: UploadFile = File(...)):
+    try:
+        df=pd.read_csv(file.file)
+        #print(df)
+        preprocesor=load_object("final_model/preprocessor.pkl")
+        final_model=load_object("final_model/model.pkl")
+        network_model = NetworkModel(preprocessor=preprocesor,model=final_model)
+        print(df.iloc[0])
+        y_pred = network_model.predict(df)
+        print(y_pred)
+        df['predicted_column'] = y_pred
+        print(df['predicted_column'])
+        #df['predicted_column'].replace(-1, 0)
+        #return df.to_json()
+        df.to_csv('prediction_output/output.csv')
+        table_html = df.to_html(classes='table table-striped')
+        #print(table_html)
+        return templates.TemplateResponse("table.html", {"request": request, "table": table_html})
+    
+    except Exception as e:
+         raise NetworkSecurityException(e,sys)
+    
+
+if __name__ == "__main__":
         app_run(app,host="localhost",port=8000)
