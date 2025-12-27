@@ -122,7 +122,7 @@ class ModelTrainer:
         model_dir_path = os.path.dirname(self.model_trainer_config.trained_model_file_path)
         os.makedirs(model_dir_path, exist_ok=True)
 
-        network_model = NetworkModel(processor=preprocessor, model=best_model)
+        network_model = NetworkModel(preprocessor=preprocessor, model=best_model)
 
         save_object(self.model_trainer_config.trained_model_file_path, obj=network_model)
 
