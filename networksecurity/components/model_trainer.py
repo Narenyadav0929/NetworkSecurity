@@ -21,7 +21,7 @@ from sklearn.ensemble import (
 )
 import mlflow
 import dagshub
-dagshub.init(repo_owner='Narenyadav0929', repo_name='NetworkSecurity', mlflow=True)
+# dagshub.init(repo_owner='Narenyadav0929', repo_name='NetworkSecurity', mlflow=True)
 
 class ModelTrainer:
     def __init__(self,model_trainer_config:ModelTrainerConfig, data_transformation_artifact:DataTransformationArtifact):
@@ -32,6 +32,19 @@ class ModelTrainer:
         
         except Exception as e:
             raise NetworkSecurityException(e, sys)
+        
+    
+    def initiate_model_trainer(self):
+        try:
+            if os.getenv("DAGSHUB_TOKEN"):
+                dagshub.init(
+                    repo_owner="Narenyadav0929",
+                    repo_name="NetworkSecurity",
+                    mlflow=True
+                )
+        except Exception as e:
+            raise NetworkModel(e,sys)
+
         
 
     def track_mlflow(self,best_model, classification_matrix:ClassificationMetricArtifact):
@@ -114,6 +127,7 @@ class ModelTrainer:
         logging.info(f'Best model name {best_model_name} and classifaction matric is  {classification_test_metric}')
 
         # track experiment with mlflow
+        self.initiate_model_trainer()
         self.track_mlflow(best_model=best_model,classification_matrix=classification_train_metric)
         self.track_mlflow(best_model=best_model,classification_matrix=classification_test_metric)
 
