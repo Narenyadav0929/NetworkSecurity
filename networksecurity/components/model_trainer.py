@@ -34,7 +34,7 @@ class ModelTrainer:
             raise NetworkSecurityException(e, sys)
         
     
-    def initiate_model_trainer(self):
+    def initiate_dags_model_trainer(self):
         try:
             if os.getenv("DAGSHUB_TOKEN"):
                 dagshub.init(
@@ -127,7 +127,7 @@ class ModelTrainer:
         logging.info(f'Best model name {best_model_name} and classifaction matric is  {classification_test_metric}')
 
         # track experiment with mlflow
-        self.initiate_model_trainer()
+        self.initiate_dags_model_trainer()
         self.track_mlflow(best_model=best_model,classification_matrix=classification_train_metric)
         self.track_mlflow(best_model=best_model,classification_matrix=classification_test_metric)
 
