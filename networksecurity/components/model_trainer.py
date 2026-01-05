@@ -43,7 +43,7 @@ class ModelTrainer:
                     mlflow=True
                 )
         except Exception as e:
-            raise NetworkModel(e,sys)
+            raise NetworkSecurityException(e,sys)
 
         
 
