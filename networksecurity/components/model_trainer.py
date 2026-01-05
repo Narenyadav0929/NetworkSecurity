@@ -19,6 +19,8 @@ from sklearn.ensemble import (
     AdaBoostClassifier,
     RandomForestClassifier
 )
+from xgboost import XGBClassifier
+from catboost import CatBoostClassifier
 import mlflow
 import dagshub
 # dagshub.init(repo_owner='Narenyadav0929', repo_name='NetworkSecurity', mlflow=True)
@@ -71,7 +73,9 @@ class ModelTrainer:
                 "Gradient Boosting": GradientBoostingClassifier(verbose=1),
                 "Logistic Regression": LogisticRegression(verbose=1),
                 "AdaBoost": AdaBoostClassifier(),
-                "KNeighbors Classifier": KNeighborsClassifier()
+                "KNeighbors Classifier": KNeighborsClassifier(),
+                "Xgboost": XGBClassifier(),
+                "catboost": CatBoostClassifier(verbose=False, loss_function="Logloss")
             }
         params={
             "Decision Tree": {
@@ -101,7 +105,21 @@ class ModelTrainer:
             "KNeighbors Classifier": {
                 'n_neighbors': [4,5,8,10],
                 # 'algorithm' : ['auto', 'ball_tree', 'kd_tree']
-            }
+            },"Xgboost": {
+                "n_estimators": [100, 200],
+                "learning_rate": [0.1, 0.05],
+                "max_depth": [3, 5],
+                "subsample": [0.8, 1.0],
+                "colsample_bytree": [0.8, 1.0]
+,           },
+            "catboost": {
+                "iterations": [200, 500],
+                "learning_rate": [0.1, 0.05],
+                "depth": [4, 6],
+                "l2_leaf_reg": [3, 5]
+            },
+
+
             
         }
         model_report:dict=evaluate_models(x_train=x_train,y_train=y_train, x_test=x_test, y_test=y_test,models=models,params=params)
