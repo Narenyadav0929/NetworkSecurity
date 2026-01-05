@@ -57,7 +57,7 @@ class DataIngestion:
     def split_data_as_train_test(self,dataframe: pd.DataFrame):
         try:
             train_set, test_set = train_test_split(dataframe,
-                                                test_size=self.data_ingestion_config.train_test_split_ratio)
+                                                test_size=self.data_ingestion_config.train_test_split_ratio,stratify=dataframe['Result'])
             
             logging.info("Performed train test split on the data")
 
@@ -79,7 +79,10 @@ class DataIngestion:
             dataframe = self.export_collection_as_dataframe()
 
             dataframe = self.export_data_to_feature_store(dataframe=dataframe)
-
+            duplicate_count = dataframe.duplicated().sum()
+            logging.info(f"Number of duplicate rows found: {duplicate_count}")
+            dataframe = dataframe.drop_duplicates()
+            logging.info(f"Dataset shape after removing duplicates: {dataframe.shape}")
             self.split_data_as_train_test(dataframe=dataframe)
 
             data_injetion_artifact = DataIngestionArtifact(train_file_path=self.data_ingestion_config.training_file_path,
