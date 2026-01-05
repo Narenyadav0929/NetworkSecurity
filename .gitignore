@@ -10,3 +10,5 @@ NetworkSecurity.egg-info
 /NetworkSecurity.egg-info
 mlflow.db
 mlruns
+notebooks\catboost_info
+\notebooks\catboost_info
