@@ -46,6 +46,20 @@ EDA was primarily focused on **data quality and validation**, while model perfor
 
 ---
 
+## 📊 Model Evaluation
+
+Model performance was evaluated using the following metrics:
+
+- **F1-score**
+- **Precision**
+- **Recall**
+- **Confusion Matrix**
+- **ROC–AUC Curve**
+- **Precision–Recall Curve**
+
+ROC–AUC was used to measure overall class separability, while the Precision–Recall curve was used to assess phishing detection quality, where false negatives are critical.
+
+
 ## ⚙️ Machine Learning Pipeline
 The project follows a modular pipeline architecture:
 
@@ -69,19 +83,7 @@ The project follows a modular pipeline architecture:
 
 ---
 
-## 📊 Model Evaluation
-Model performance was evaluated using the following metrics:
 
-- **F1-score**
-- **Precision**
-- **Recall**
-- **Confusion Matrix**
-- **ROC–AUC Curve**
-- **Precision–Recall Curve**
-
-ROC–AUC was used to measure overall class separability, while the Precision–Recall curve was used to assess phishing detection quality, where false negatives are critical.
-
----
 
 ## 🧠 Key ML Concepts Used
 - Stratified train-test split
@@ -98,6 +100,7 @@ ROC–AUC was used to measure overall class separability, while the Precision–
 - Scikit-learn
 - MongoDB
 - Docker
+- Fastapi
 
 ---
 
