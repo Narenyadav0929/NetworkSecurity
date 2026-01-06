@@ -35,17 +35,14 @@ All features are **ternary encoded**:
 ---
 
 ## 🧪 Exploratory Data Analysis (EDA)
-Key EDA steps performed:
-- Missing value check (no missing values)
+The following EDA checks were performed:
+- Missing value analysis
 - Duplicate record removal (to prevent data leakage)
-- Feature value range validation (`-1, 0, 1`)
-- Class imbalance analysis (balanced after deduplication)
-- Data leakage checks
-- Visualization using:
-  - Countplots
-  - Boxplots
-  - Pairplots (selected features)
-  - Correlation heatmap (sanity check)
+- Feature value range validation
+- Class imbalance analysis
+- Data leakage prevention checks
+
+EDA was primarily focused on **data quality and validation**, while model performance was assessed during the evaluation stage.
 
 ---
 
@@ -63,17 +60,26 @@ The project follows a modular pipeline architecture:
    - Leakage prevention checks
 
 3. **Data Transformation**
-   - Imputation (future robustness)
+   - Imputation for robustness
    - Feature preparation using pipelines
 
 4. **Model Training**
-   - Classification models (Logistic Regression, Tree-based models)
-   - Proper evaluation metrics
+   - Supervised classification models
+   - Pipeline-based training
 
-5. **Model Evaluation**
-   - Confusion Matrix
-   - ROC-AUC
-   - Precision–Recall Curve
+---
+
+## 📊 Model Evaluation
+Model performance was evaluated using the following metrics:
+
+- **F1-score**
+- **Precision**
+- **Recall**
+- **Confusion Matrix**
+- **ROC–AUC Curve**
+- **Precision–Recall Curve**
+
+ROC–AUC was used to measure overall class separability, while the Precision–Recall curve was used to assess phishing detection quality, where false negatives are critical.
 
 ---
 
@@ -81,8 +87,8 @@ The project follows a modular pipeline architecture:
 - Stratified train-test split
 - Data leakage prevention
 - Pipeline-based preprocessing
-- Feature importance analysis
-- Rule-based feature interpretation
+- Model evaluation using classification metrics
+- Threshold-independent evaluation (ROC–AUC, PR curve)
 
 ---
 
@@ -90,7 +96,6 @@ The project follows a modular pipeline architecture:
 - Python
 - Pandas, NumPy
 - Scikit-learn
-- Seaborn, Matplotlib
 - MongoDB
 - Docker
 
